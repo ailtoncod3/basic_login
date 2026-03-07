@@ -1,0 +1,23 @@
+<?php
+session_start();
+
+define('CONTROL', true);
+
+$loggedUser = $_SESSION['user'] ?? null;
+
+if(empty($loggedUser)){
+    $route = 'login';
+}else{
+    $route = $_GET['route'];
+}
+
+$routes = [
+    'login' => 'login.php',
+    'home' => 'home.php'
+];
+
+if(!key_exists($route, $routes)) {
+    die('Access denied');
+}
+
+require_once($routes[$route]);
