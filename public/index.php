@@ -17,7 +17,7 @@ $routes = [
 ];
 
 if(!key_exists($route, $routes)) {
-    die('Access denied');
+    die('<h1>Access denied<h1>');
 }
 
 require_once($routes[$route]);
