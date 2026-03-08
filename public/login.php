@@ -1,12 +1,28 @@
 <?php
 defined('CONTROL') or die('<h1>Access denied<h1>');
 
+if(!empty($loggedUser)){
+    header('location: index.php?route=home');
+}
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     if(empty($email) || empty($password)){
         $erro = 'Email e senha são obrigatorios';
+    }
+
+    if(empty($erro)){
+        $users = require_once(__DIR__ . '/../inc/users.php');
+
+        foreach($users as $u) {
+            if($u['user'] == $email && password_verify($password, $u['password'])) {
+                $_SESSION['user'] = $email;
+                header('location: index.php?route=home');
+            }
+        }
+        $erro = 'Usuario e/ou senha inválidos';
     }
 }
 ?>
@@ -22,11 +38,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <form action="index.php?route=login" method="post">
         <Div>
             <label for="email">Email</label>
-            <input type="text" name="email" placeholder="Email">
+            <input type="text" name="email" placeholder="Email" value="usuario02@gmail.com">
         </Div>
         <div>
             <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password" value="senha002">
         </div>
         <div>
             <input type="submit" value="login">

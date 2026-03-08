@@ -13,7 +13,8 @@ if(empty($loggedUser)){
 
 $routes = [
     'login' => 'login.php',
-    'home' => 'home.php'
+    'home' => 'home.php',
+    'logout' => 'logout.php'
 ];
 
 if(!key_exists($route, $routes)) {
