@@ -1,6 +1,10 @@
 <?php
 defined('CONTROL') or die('<h1>Access denied<h1>');
 
+if(!empty($loggedUser)){
+    header('location: index.php?route=home');
+}
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email'];
     $password = $_POST['password'];
